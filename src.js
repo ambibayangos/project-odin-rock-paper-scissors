@@ -1,23 +1,55 @@
 // How is R,P and S specified ? as words?
 // I assume words
 
+const rock = "rock";
+const paper = "paper";
+const scissors = "scissors";
+
+
 function getComputerChoice(){
-    let randomFloat = Math.random();
+    let randomFloat = Math.random(); // create a float between 0-1 not including.
     if(randomFloat <= 1/3){
-        return "Rock";
+        return rock;
     }
     else if (randomFloat > 1/3 && randomFloat <= 2/3){
-        return "Paper";
+        return paper;
     }else{
-        return "Scissors";
+        return scissors;
     }
 }
 
-// Get the user input
 
-// repeat the game 5 times. Showing the winner for each time, and then
-// shoring who is the ultimate winner at the end.
 
-for(let i = 0; i < 10; i++){
-   console.log(getComputerChoice());
-}
+
+function playRound(playerSelection, computerSelection) {
+    let lowerCasePlayerSelection = playerSelection.toLowerCase();
+    if(lowerCasePlayerSelection == computerSelection){
+        return "Draw!"
+    }
+
+    if(lowerCasePlayerSelection == rock && computerSelection == paper){
+        return "Player wins - paper beats rock :)"
+    }else if(computerSelection = rock && lowerCasePlayerSelection==paper){
+        return "Bot wins - paper beats rock :("
+    }
+
+    if(lowerCasePlayerSelection == scissors && computerSelection == paper){
+        return "Player wins - scissor beats paper :)"
+    }else if(computerSelection = scissors && lowerCasePlayerSelection==paper){
+        return "Bot wins - scissor beats paper :("
+    }
+
+    if(lowerCasePlayerSelection == paper && computerSelection == rock){
+        return "Player wins - paper beats rock :)"
+    }else if(computerSelection = paper && lowerCasePlayerSelection==rock){
+        return "Bot wins - paper beats rock :("
+    }
+  }
+   
+
+  for(let i = 0; i < 10; i++){
+    const playerSelection = "rock";
+    const computerSelection = getComputerChoice();
+    console.log(playRound(playerSelection, computerSelection));
+ }
+ 
