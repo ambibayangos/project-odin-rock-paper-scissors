@@ -23,8 +23,6 @@ function getComputerChoice(){
 }
 
 
-
-
 function playRound(playerSelection, computerSelection) {
     let lowerCasePlayerSelection = playerSelection.toLowerCase();
     if(lowerCasePlayerSelection == computerSelection){
@@ -51,18 +49,29 @@ function playRound(playerSelection, computerSelection) {
   }
 
   function Game(){
-    // call playGame() multiple time
     let playerScore = 0;
     let botScore = 0;
-    for(let i = 0; i < 10; i++){
-      const playerSelection = "rock";
+    for(let i = 0; i < 3; i++){
+      const playerSelection = prompt("Enter Rock,Paper or Scissors!");
       const computerSelection = getComputerChoice();
       let tempResult = playRound(playerSelection, computerSelection);
-      (tempResult == player_wins) && tempResult != draw ? playerScore++ : botScore++;
+      //(tempResult == player_wins) && tempResult != draw ? playerScore++ : botScore++;
+      if(tempResult == player_wins){
+        playerScore++;
+      }else if(tempResult == bot_wins){
+        botScore++;
+      }
     }
-    playerScore > botScore ? console.log("Player Wins :)") : console.log("Bot Wins :(");
+
+    if( playerScore > botScore){
+        console.log("Player Wins :)")
+    }else if(playerScore < botScore){
+        console.log("Bot Wins :(")
+    }else{
+        console.log("Invalid game or draw");
+    }
   }
-   
+  
 
 Game();
 
