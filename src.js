@@ -57,10 +57,8 @@ function playRound(playerSelection, computerSelection) {
         let result = playRound(playerSelection, computerSelection);
         if(result == player_wins){
           playerScore++;
-          console.log("p");
         }else if(result == bot_wins){
           botScore++;
-          console.log("b");
         }
     }
 
