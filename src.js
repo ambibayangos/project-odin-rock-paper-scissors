@@ -22,9 +22,9 @@ function getComputerChoice(){
 
 function playRound(playerSelection, computerSelection) {
     let lowerCasePlayerSelection = playerSelection.toLowerCase();
-    if(lowerCasePlayerSelection === rock && computerSelection === paper){
+    if(lowerCasePlayerSelection === paper && computerSelection === rock){
         return player_wins;
-    }else if(computerSelection === rock && lowerCasePlayerSelection===paper){
+    }else if(computerSelection === paper && lowerCasePlayerSelection=== rock){
         return bot_wins;
     }
 
@@ -39,33 +39,37 @@ function playRound(playerSelection, computerSelection) {
     }else if(computerSelection === paper && lowerCasePlayerSelection === rock){
         return bot_wins;
     }
+
+    if(lowerCasePlayerSelection === rock && computerSelection === scissors){
+        return player_wins;
+    }else if(computerSelection === rock && lowerCasePlayerSelection === scissors){
+        return bot_wins;
+    }
   }
 
-  function Game(){
+  function Game(winningScore){
     let playerScore = 0;
     let botScore = 0;
-    for(let i = 0; i < 5; i++){
-      //let playerSelection = prompt("Enter Rock,Paper or Scissors!");
-      const playerSelection = "rock";
-      const computerSelection = getComputerChoice();
-      let tempResult = playRound(playerSelection, computerSelection);
-      if(tempResult === player_wins){
-        playerScore++;
-        console.log("p");
-      }else if(tempResult == bot_wins){
-        botScore++;
-        console.log("b");
-      }
+
+    while(botScore !== winningScore && playerScore < winningScore || playerScore !== winningScore && botScore < winningScore){
+        const playerSelection = "rock";
+        const computerSelection = getComputerChoice();
+        let result = playRound(playerSelection, computerSelection);
+        if(result == player_wins){
+          playerScore++;
+          console.log("p");
+        }else if(result == bot_wins){
+          botScore++;
+          console.log("b");
+        }
     }
 
-    if( playerScore > botScore){
+    if( playerScore === winningScore){
         console.log("Player Wins :)")
-    }else if(playerScore < botScore){
-        console.log("Bot Wins :(")
     }else{
-        console.log("Invalid game or draw");
+        console.log("Bot Wins :(")
     }
   }
   
 
-//Game();
+Game(10);
