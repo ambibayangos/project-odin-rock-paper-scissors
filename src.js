@@ -2,13 +2,13 @@ const rock = "rock";
 const paper = "paper";
 const scissors = "scissors";
 
-const player_wins = 2;
-const bot_wins = 3;
-const draw = 0;
+const player_wins = 1;
+const bot_wins = 2;
+const draw = 3;
 
 
 function getComputerChoice(){
-    let randomNumber = (Math.floor(Math.random())*10)%3; // create numbers 0,1,and 2 randomly.
+    let randomNumber = (Math.floor(Math.random()*10))%3; // create numbers 0,1,and 2 randomly.
     if(randomNumber === 0){
         return rock;
     }
@@ -22,25 +22,21 @@ function getComputerChoice(){
 
 function playRound(playerSelection, computerSelection) {
     let lowerCasePlayerSelection = playerSelection.toLowerCase();
-    if(lowerCasePlayerSelection == computerSelection){
-        return draw;
-    }
-
-    if(lowerCasePlayerSelection == rock && computerSelection == paper){
+    if(lowerCasePlayerSelection === rock && computerSelection === paper){
         return player_wins;
-    }else if(computerSelection = rock && lowerCasePlayerSelection==paper){
+    }else if(computerSelection === rock && lowerCasePlayerSelection===paper){
         return bot_wins;
     }
 
-    if(lowerCasePlayerSelection == scissors && computerSelection == paper){
+    if(lowerCasePlayerSelection === scissors && computerSelection === paper){
         return player_wins;
-    }else if(computerSelection = scissors && lowerCasePlayerSelection==paper){
+    }else if(computerSelection === scissors && lowerCasePlayerSelection === paper){
         return bot_wins;
     }
 
-    if(lowerCasePlayerSelection == paper && computerSelection == rock){
+    if(lowerCasePlayerSelection === paper && computerSelection === rock){
         return player_wins;
-    }else if(computerSelection = paper && lowerCasePlayerSelection==rock){
+    }else if(computerSelection === paper && lowerCasePlayerSelection === rock){
         return bot_wins;
     }
   }
@@ -48,14 +44,17 @@ function playRound(playerSelection, computerSelection) {
   function Game(){
     let playerScore = 0;
     let botScore = 0;
-    for(let i = 0; i < 3; i++){
-      let playerSelection = prompt("Enter Rock,Paper or Scissors!");
+    for(let i = 0; i < 5; i++){
+      //let playerSelection = prompt("Enter Rock,Paper or Scissors!");
+      const playerSelection = "rock";
       const computerSelection = getComputerChoice();
       let tempResult = playRound(playerSelection, computerSelection);
-      if(tempResult == player_wins){
+      if(tempResult === player_wins){
         playerScore++;
+        console.log("p");
       }else if(tempResult == bot_wins){
         botScore++;
+        console.log("b");
       }
     }
 
@@ -69,5 +68,4 @@ function playRound(playerSelection, computerSelection) {
   }
   
 
-Game();
-
+//Game();
