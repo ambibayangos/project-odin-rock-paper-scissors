@@ -1,6 +1,3 @@
-// How is R,P and S specified ? as words?
-// I assume words
-
 const rock = "rock";
 const paper = "paper";
 const scissors = "scissors";
@@ -11,11 +8,11 @@ const draw = 0;
 
 
 function getComputerChoice(){
-    let randomFloat = Math.random(); // create a float between 0-1 not including.
-    if(randomFloat <= 1/3){
+    let randomNumber = (Math.floor(Math.random())*10)%3; // create numbers 0,1,and 2 randomly.
+    if(randomNumber === 0){
         return rock;
     }
-    else if (randomFloat > 1/3 && randomFloat <= 2/3){
+    else if (randomNumber === 1){
         return paper;
     }else{
         return scissors;
@@ -52,10 +49,9 @@ function playRound(playerSelection, computerSelection) {
     let playerScore = 0;
     let botScore = 0;
     for(let i = 0; i < 3; i++){
-      const playerSelection = prompt("Enter Rock,Paper or Scissors!");
+      let playerSelection = prompt("Enter Rock,Paper or Scissors!");
       const computerSelection = getComputerChoice();
       let tempResult = playRound(playerSelection, computerSelection);
-      //(tempResult == player_wins) && tempResult != draw ? playerScore++ : botScore++;
       if(tempResult == player_wins){
         playerScore++;
       }else if(tempResult == bot_wins){
