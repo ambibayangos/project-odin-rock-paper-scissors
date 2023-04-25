@@ -6,6 +6,10 @@ const playerWins = "player";
 const botWins = "bot";
 const draw = "draw";
 
+const winningScore = 5;
+let playerScore = 0;
+let botScore = 0;
+
 
 function getComputerChoice(){
     let randomNumber = (Math.floor(Math.random()*10))%3; // create numbers 0,1,and 2 randomly.
@@ -20,7 +24,7 @@ function getComputerChoice(){
 }
 
 
-function playRound(playerSelection, botHand) {
+function determineSetWinner(playerSelection, botHand) {
     let playerHand = playerSelection.toLowerCase();
 
     //rock to paper
@@ -46,26 +50,28 @@ function playRound(playerSelection, botHand) {
     return draw;
   }
 
-  function Game(winningScore){
-    let playerScore = 0;
-    let botScore = 0;
+  function Game(event){
+    const playerHand = event.target.getAttribute('id');
+    const botHand = getComputerChoice();
+    let winner = determineSetWinner(playerHand, botHand);
+    DisplaySetWinnner(winner);
 
-    while(botScore !== winningScore && playerScore < winningScore || 
-          playerScore !== winningScore && botScore < winningScore){
-        const playerSelection = "rock";
-        const botHand = getComputerChoice();
-        let result = playRound(playerSelection, botHand);
-        if(result == playerWins){
-          playerScore++;
-        }else if(result == botWins){
-          botScore++;
-        }
+    if(winner == playerWins){
+        playerScore++;
+        DisplayScores();
+    }else if(winner == botWins){
+        botScore++;
+        DisplayScores();
     }
 
-    if( playerScore === winningScore){
-        console.log("Player Wins :)")
-    }else{
-        console.log("Bot Wins :(")
+    if(playerScore == winningScore){
+        console.log('Player wins');
+        botScore = 0;
+        playerScore = 0;
+    }else if (botScore == winningScore){
+        console.log('Bot wins');
+        botScore = 0;
+        playerScore = 0;
     }
   }
 
@@ -76,13 +82,7 @@ function playRound(playerSelection, botHand) {
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
-    button.addEventListener('click' , (e) =>{
-    const playerHand = e.target.getAttribute('id');
-    const botHand = getComputerChoice();
-    let winner = playRound(playerHand, botHand);
-
-    DisplaySetWinnner(winner);
-    });
+    button.addEventListener('click',Game);
 });
 
 
@@ -91,7 +91,6 @@ function DisplaySetWinnner(winner){
     // if set winner already exist then just update
     // otherwise need to create it.
     let setResultElement = document.querySelector('.set-winner');
-    console.log(setResultElement);
     if(setResultElement){
         setResultElement.textContent = `Set Winner : ${winner}`;
     }else{
@@ -101,12 +100,20 @@ function DisplaySetWinnner(winner){
         setResultElement.textContent = `Set Winner : ${winner}`;
         cotainer.prepend(setResultElement);
     }
-
-
 }
 
-// once the player selection is pressed we play one game
-// each game we display the current score of the p and b
-/* once a score the winning score is reached we display
-   the winner and ask if the player wants to play again
-*/
+function DisplayScores(event){
+    let scoreElement = document.querySelector('.score');
+    if(!scoreElement){
+        scoreElement = document.createElement('div');
+        scoreElement.classList.add('score');
+        scoreElement.textContent = `Player:${playerScore} Bot: ${botScore}`;
+
+        const container = document.querySelector('.container');
+        container.prepend(scoreElement);
+        return;
+    }
+
+    scoreElement.textContent = `Player:${playerScore} Bot: ${botScore}`;
+
+}
