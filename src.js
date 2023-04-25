@@ -65,11 +65,11 @@ function determineSetWinner(playerSelection, botHand) {
     }
 
     if(playerScore == winningScore){
-        console.log('Player wins');
+        displayMatchWinner('You');
         botScore = 0;
         playerScore = 0;
     }else if (botScore == winningScore){
-        console.log('Bot wins');
+        displayMatchWinner('Bot');
         botScore = 0;
         playerScore = 0;
     }
@@ -115,5 +115,18 @@ function DisplayScores(event){
     }
 
     scoreElement.textContent = `Player:${playerScore} Bot: ${botScore}`;
+}
 
+function displayMatchWinner(winner){
+    let matchWinnerElement = document.querySelector('.match-winner');
+    if(!matchWinnerElement){
+        matchWinnerElement = document.createElement('h2');
+        matchWinnerElement.classList.add('match-winner');
+        matchWinnerElement.textContent = `${winner} won the match!`;
+
+        const container = document.querySelector('.container');
+        container.prepend(matchWinnerElement);
+    }
+
+    matchWinnerElement.textContent = `${winner} won the match!`;
 }
