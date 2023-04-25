@@ -65,20 +65,15 @@ function determineSetWinner(playerSelection, botHand) {
     }
 
     if(playerScore == winningScore){
-        displayMatchWinner('You');
+        displayGameOverScreen('You');
         botScore = 0;
         playerScore = 0;
     }else if (botScore == winningScore){
-        displayMatchWinner('Bot');
+        displayGameOverScreen('Bot');
         botScore = 0;
         playerScore = 0;
     }
   }
-
- 
-
-  
-//Game(10);
 
 const buttons = document.querySelectorAll("button");
 buttons.forEach(button => {
@@ -95,7 +90,7 @@ function DisplaySetWinnner(winner){
         setResultElement.textContent = `Set Winner : ${winner}`;
     }else{
         const cotainer = document.querySelector('.container');
-        setResultElement = document.createElement('h2');
+        setResultElement = document.createElement('h3');
         setResultElement.classList.add('set-winner');
         setResultElement.textContent = `Set Winner : ${winner}`;
         cotainer.prepend(setResultElement);
@@ -117,16 +112,36 @@ function DisplayScores(event){
     scoreElement.textContent = `Player:${playerScore} Bot: ${botScore}`;
 }
 
-function displayMatchWinner(winner){
+function displayGameOverScreen(winner){
     let matchWinnerElement = document.querySelector('.match-winner');
     if(!matchWinnerElement){
         matchWinnerElement = document.createElement('h2');
         matchWinnerElement.classList.add('match-winner');
         matchWinnerElement.textContent = `${winner} won the match!`;
 
+        const resetElement = document.createElement('button');
+        resetElement.classList.add('reset-btn');
+        resetElement.textContent = `Play again!`;
+
         const container = document.querySelector('.container');
         container.prepend(matchWinnerElement);
+        container.append(resetElement);
+
+        // reset the game screen by removing elements
+        resetElement.addEventListener('click', resetGameScreen);
+        return;
     }
 
     matchWinnerElement.textContent = `${winner} won the match!`;
+}
+
+function resetGameScreen(){
+    const scoreElement = document.querySelector('.score');
+    const setResultElement = document.querySelector('.set-winner');
+    const matchWinnerElement = document.querySelector('.match-winner');
+    const resetElement = document.querySelector('.reset-btn');
+    scoreElement.remove();
+    setResultElement.remove();
+    matchWinnerElement.remove();
+    resetElement.remove();
 }
