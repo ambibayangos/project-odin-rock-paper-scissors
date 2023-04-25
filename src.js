@@ -2,9 +2,9 @@ const rock = "rock";
 const paper = "paper";
 const scissors = "scissors";
 
-const player_wins = 1;
-const bot_wins = 2;
-const draw = 3;
+const playerWins = "player";
+const botWins = "bot";
+const draw = "draw";
 
 
 function getComputerChoice(){
@@ -20,31 +20,30 @@ function getComputerChoice(){
 }
 
 
-function playRound(playerSelection, computerSelection) {
-    let lowerCasePlayerSelection = playerSelection.toLowerCase();
-    if(lowerCasePlayerSelection === paper && computerSelection === rock){
-        return player_wins;
-    }else if(computerSelection === paper && lowerCasePlayerSelection=== rock){
-        return bot_wins;
+function playRound(playerSelection, botHand) {
+    let playerHand = playerSelection.toLowerCase();
+
+    //rock to paper
+    if(playerHand === rock && botHand === paper){
+        return botWins;
+    }else if(botHand === rock && playerHand === paper){
+        return playerWins;
+    }
+    //rock to scissor
+    if(playerHand === rock && botHand === scissors){
+        return playerWins;
+    }else if(botHand === rock && playerHand === scissors){
+        return botWins;
     }
 
-    if(lowerCasePlayerSelection === scissors && computerSelection === paper){
-        return player_wins;
-    }else if(computerSelection === scissors && lowerCasePlayerSelection === paper){
-        return bot_wins;
+    //paper to scissor
+    if(playerHand === paper && botHand === scissors){
+        return botWins;
+    }else if(botHand === paper && playerHand === scissors){
+        return playerWins;
     }
 
-    if(lowerCasePlayerSelection === paper && computerSelection === rock){
-        return player_wins;
-    }else if(computerSelection === paper && lowerCasePlayerSelection === rock){
-        return bot_wins;
-    }
-
-    if(lowerCasePlayerSelection === rock && computerSelection === scissors){
-        return player_wins;
-    }else if(computerSelection === rock && lowerCasePlayerSelection === scissors){
-        return bot_wins;
-    }
+    return draw;
   }
 
   function Game(winningScore){
@@ -54,11 +53,11 @@ function playRound(playerSelection, computerSelection) {
     while(botScore !== winningScore && playerScore < winningScore || 
           playerScore !== winningScore && botScore < winningScore){
         const playerSelection = "rock";
-        const computerSelection = getComputerChoice();
-        let result = playRound(playerSelection, computerSelection);
-        if(result == player_wins){
+        const botHand = getComputerChoice();
+        let result = playRound(playerSelection, botHand);
+        if(result == playerWins){
           playerScore++;
-        }else if(result == bot_wins){
+        }else if(result == botWins){
           botScore++;
         }
     }
@@ -80,9 +79,11 @@ buttons.forEach(button => {
     button.addEventListener('click' , (e) =>{
     const playerHand = e.target.getAttribute('id');
     const botHand = getComputerChoice();
+    let winner = playRound(playerHand, botHand);
 
     console.log(`player : ${playerHand}`);
     console.log(`bot : ${botHand}`);
+     console.log(`Winner is: ${winner}`);
     console.log(`-----------------------------`);
     });
 });
