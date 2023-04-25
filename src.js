@@ -10,6 +10,8 @@ const winningScore = 5;
 let playerScore = 0;
 let botScore = 0;
 
+const rpsChoiseElement = document.querySelector('.choise-btn');
+
 
 function getComputerChoice(){
     let randomNumber = (Math.floor(Math.random()*10))%3; // create numbers 0,1,and 2 randomly.
@@ -102,33 +104,41 @@ function DisplayScores(event){
     if(!scoreElement){
         scoreElement = document.createElement('div');
         scoreElement.classList.add('score');
-        scoreElement.textContent = `Player:${playerScore} Bot: ${botScore}`;
+        scoreElement.textContent = `Player: ${playerScore} Bot: ${botScore}`;
 
         const container = document.querySelector('.container');
         container.prepend(scoreElement);
         return;
     }
 
-    scoreElement.textContent = `Player:${playerScore} Bot: ${botScore}`;
+    scoreElement.textContent = `Player: ${playerScore} Bot: ${botScore}`;
 }
 
 function displayGameOverScreen(winner){
     let matchWinnerElement = document.querySelector('.match-winner');
     if(!matchWinnerElement){
+
+        // display the winner
         matchWinnerElement = document.createElement('h2');
         matchWinnerElement.classList.add('match-winner');
         matchWinnerElement.textContent = `${winner} won the match!`;
 
+        // remove chouse btns and set winner elements
+        const setWinnerElement = document.querySelector('.set-winner');
+        const choiseBtnsElement = document.querySelector('.choise-btn');
+        setWinnerElement.remove();
+        choiseBtnsElement.remove();
+        
+
+        // create reset btn
         const resetElement = document.createElement('button');
         resetElement.classList.add('reset-btn');
-        resetElement.textContent = `Play again!`;
-
+        resetElement.textContent = `Play again`;
         const container = document.querySelector('.container');
         container.prepend(matchWinnerElement);
         container.append(resetElement);
-
-        // reset the game screen by removing elements
         resetElement.addEventListener('click', resetGameScreen);
+
         return;
     }
 
@@ -137,11 +147,15 @@ function displayGameOverScreen(winner){
 
 function resetGameScreen(){
     const scoreElement = document.querySelector('.score');
-    const setResultElement = document.querySelector('.set-winner');
     const matchWinnerElement = document.querySelector('.match-winner');
     const resetElement = document.querySelector('.reset-btn');
     scoreElement.remove();
-    setResultElement.remove();
     matchWinnerElement.remove();
     resetElement.remove();
+
+    
+    const container = document.querySelector('.container');
+    container.append(rpsChoiseElement);
+    
+
 }
