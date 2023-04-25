@@ -81,12 +81,29 @@ buttons.forEach(button => {
     const botHand = getComputerChoice();
     let winner = playRound(playerHand, botHand);
 
-    console.log(`player : ${playerHand}`);
-    console.log(`bot : ${botHand}`);
-     console.log(`Winner is: ${winner}`);
-    console.log(`-----------------------------`);
+    DisplaySetWinnner(winner);
     });
 });
+
+
+function DisplaySetWinnner(winner){
+    
+    // if set winner already exist then just update
+    // otherwise need to create it.
+    let setResultElement = document.querySelector('.set-winner');
+    console.log(setResultElement);
+    if(setResultElement){
+        setResultElement.textContent = `Set Winner : ${winner}`;
+    }else{
+        const cotainer = document.querySelector('.container');
+        setResultElement = document.createElement('h2');
+        setResultElement.classList.add('set-winner');
+        setResultElement.textContent = `Set Winner : ${winner}`;
+        cotainer.prepend(setResultElement);
+    }
+
+
+}
 
 // once the player selection is pressed we play one game
 // each game we display the current score of the p and b
