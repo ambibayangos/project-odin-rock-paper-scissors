@@ -51,7 +51,8 @@ function playRound(playerSelection, computerSelection) {
     let playerScore = 0;
     let botScore = 0;
 
-    while(botScore !== winningScore && playerScore < winningScore || playerScore !== winningScore && botScore < winningScore){
+    while(botScore !== winningScore && playerScore < winningScore || 
+          playerScore !== winningScore && botScore < winningScore){
         const playerSelection = "rock";
         const computerSelection = getComputerChoice();
         let result = playRound(playerSelection, computerSelection);
@@ -68,6 +69,26 @@ function playRound(playerSelection, computerSelection) {
         console.log("Bot Wins :(")
     }
   }
-  
 
-Game(10);
+ 
+
+  
+//Game(10);
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach(button => {
+    button.addEventListener('click' , (e) =>{
+    const playerHand = e.target.getAttribute('id');
+    const botHand = getComputerChoice();
+
+    console.log(`player : ${playerHand}`);
+    console.log(`bot : ${botHand}`);
+    console.log(`-----------------------------`);
+    });
+});
+
+// once the player selection is pressed we play one game
+// each game we display the current score of the p and b
+/* once a score the winning score is reached we display
+   the winner and ask if the player wants to play again
+*/
